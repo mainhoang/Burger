@@ -1,7 +1,7 @@
 var connection = require('../config/connection.js');
 
 var orm = {
-  all: function(tableName, cbFunction) {
+  selectAll: function(tableName, cbFunction) {
     var queryString = "SELECT * FROM " + tableName + ";";
     connection.query(queryString, function(err, resultsArr) {
       if (err) {
@@ -10,7 +10,7 @@ var orm = {
       cbFunction(resultsArr);
     });
   },
-  create: function(tableName, cols, vals, cbFunction) {
+  insertOne: function(tableName, cols, vals, cbFunction) {
     var query = "INSERT INTO " + tableName + " (" + cols.toString(); + ") ";
     	query += "VALUES (" + printQuestionMarks(vals.length); + ") ";
 
@@ -24,7 +24,7 @@ var orm = {
     });
   },
 
-  update: function(tableName, objColVals, condition, cbFunction) {
+  updateOne: function(tableName, objColVals, condition, cbFunction) {
     var query = "UPDATE " + tableName + " SET " + objToSql(objColVals);
     	query += " WHERE " + condition;
 
@@ -35,17 +35,18 @@ var orm = {
       }
       cbFunction(resultsArr);
     });
-  },
-  delete: function(tableName, condition, cbFunction) {
-    var query = "DELETE FROM " + tableName + " WHERE " + condition;
-
-    connection.query(query, function(err, resultsArr) {
-      if (err) {
-        throw err;
-      }
-      cbFunction(resultsArr);
-    });
   }
+  // ,
+  // delete: function(tableName, condition, cbFunction) {
+  //   var query = "DELETE FROM " + tableName + " WHERE " + condition;
+
+  //   connection.query(query, function(err, resultsArr) {
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     cbFunction(resultsArr);
+  //   });
+  // }
 };
 
 module.exports = orm;
