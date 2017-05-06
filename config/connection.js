@@ -11,15 +11,16 @@ if(process.env.JAWSDB_URL){
   host: "localhost",
   user: "root",
   password: "",
-  database: "w3hz57eztsl918it"
+  database: "burgers_db"
 });
 
-connection.connect(function(err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("CONNECTED TO DB & threadId = " + connection.threadId);
-});
+// connection.connect(function(err) {
+//   if (err) {
+//     console.error("error connecting: " + err.stack);
+//     return;
+//   }
+//   console.log("CONNECTED TO DB & threadId = " + connection.threadId);
+// });
 
+connection.connect();
 module.exports = connection;
